@@ -7,5 +7,5 @@ type Product struct {
 	IsVaccinated bool    `json:"is_vaccinated" db:"is_vaccinated"`
 	LastUpdate   string  `json:"last_update,omitempty" db:"last_update,omitempty"`
 	BreedID      string	 `json:"breed_id" db:"breed_id"`	
-	Breed        *Breed	 `json:"-`	
+	Breed        *Breed	 	
 }

@@ -12,3 +12,12 @@ docker_build(
         'BINARY_NAME': 'productApp'
     }
 )
+
+docker_build(
+    'order-service',
+    '../order-service',
+    dockerfile='../order-service/order-service.dockerfile',
+    build_args={
+        'BINARY_NAME': 'orderApp'
+    }
+)

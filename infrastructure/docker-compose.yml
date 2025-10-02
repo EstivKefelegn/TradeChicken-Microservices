@@ -2,7 +2,7 @@ services:
 
   product-service:
     image: product-service
-    build: 
+    build:
       context: ./../product-service
       dockerfile: ./../product-service/product-service.dockerfile
     restart: always
@@ -10,12 +10,28 @@ services:
       - "8080:8080"
     deploy:
       mode: replicated
-      replicas: 1  
+      replicas: 1
     environment:
       DATABASE_URL: "host=product-postgres port=5432 user=postgres_product_user password=product_password dbname=products sslmode=disable timezone=UTC connect_timeout=5"
     volumes:
       - product_data:/var/lib/postgresql/data/
-       
+
+  order-service:
+    image: order-service
+    build:
+      context: ./../order-service
+      dockerfile: ./../order-service/order-service.dockerfile
+    restart: always
+    ports:
+      - "8081:8080"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DATABASE_URL: "host:order-postgres port=5433 user=postgre_order_user password=order_password dbname=orders sslmodedisable timezone=UTC connect_timeout=5"
+    volumes:
+      - order_data:/var/lib/postgresql/data
+
   product-postgres:
     image: postgres
     ports:
@@ -27,8 +43,25 @@ services:
     environment:
       POSTGRES_USER: postgres_product_user
       POSTGRES_PASSWORD: product_password
-      POSTGRES_DB: products  
+      POSTGRES_DB: products
     volumes:
       - product_data:/var/lib/postgresql/data/
+
+  order-postgres:
+    image: postgres
+    ports:
+      - "5433:5432"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres_order_user
+      POSTGRES_PASSWORD: order_password
+      POSTGRES_DB: orders
+    volumes:
+      - order_data:/var/lib/postgres/data  
+
 volumes:
   product_data:
+  order_data:

@@ -1,0 +1,34 @@
+services:
+
+  product-service:
+    image: product-service
+    build: 
+      context: ./../product-service
+      dockerfile: ./../product-service/product-service.dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 1  
+    environment:
+      DATABASE_URL: "host=product-postgres port=5432 user=postgres_product_user password=product_password dbname=products sslmode=disable timezone=UTC connect_timeout=5"
+    volumes:
+      - product_data:/var/lib/postgresql/data/
+       
+  product-postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres_product_user
+      POSTGRES_PASSWORD: product_password
+      POSTGRES_DB: products  
+    volumes:
+      - product_data:/var/lib/postgresql/data/
+volumes:
+  product_data:

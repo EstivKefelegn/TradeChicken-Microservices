@@ -1,0 +1,14 @@
+#  Tiltfile file for microservices
+
+# Docker compose file
+docker_compose('docker-compose.yml')
+
+# Product Service
+docker_build(
+    'product-service',
+    '../product-service',
+    dockerfile='../product-service/product-service.dockerfile',
+    build_args={
+        'BINARY_NAME': 'productApp'
+    }
+)

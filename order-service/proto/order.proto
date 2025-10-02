@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package orders;
+
+import "google/protobuf/timestamp.proto";
+
+
+option go_package = "kuku/orders;orders";
+
+service OrderService {
+    rpc createOrder(OrderRequest) returns (OrderResponse);
+}
+
+message OrderRequest {
+    UserInfo user = 1;
+    repeated ProductInfo product = 2;
+}
+
+message UserInfo {
+    string ID = 1;
+}
+
+message ProductInfo {
+    string ID = 1;
+    double price = 2;
+    int32 quantity = 3;
+}
+
+message Order {
+    string order_id = 1;
+    UserInfo user = 2;
+    repeated ProductInfo product = 3;
+    google.protobuf.Timestamp created_at = 4;
+}
+
+message OrderResponse {
+    Order order = 1;
+}

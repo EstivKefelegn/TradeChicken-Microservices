@@ -30,7 +30,6 @@ func main() {
 	dirs := []string{
 		"cmd",
 		"cmd/api",
-		"infrastructure",
 		"internal",
 		"internal/api",
 		"internal/api/handlers",
@@ -81,8 +80,6 @@ func main() {
 			│               └── sqlconfig.go
 			│   
 			|
-			├── infrastructure/
-			|       └── docker-compose.yml	
 			|
 			|
 			├── pkg/ (This folder holds public libraries or packages that can be used by other projects)
@@ -125,8 +122,6 @@ func main() {
 					│               └── sqlconfig.go
 					│    
 					|   
-					├── infrastructure/
-					|       └── docker-compose.yml
 					|
 					├── pkg/ (This folder holds public libraries or packages that can be used by other projects)
 					│   └── utils/
@@ -136,6 +131,7 @@ func main() {
 					├── proto/ (This folder contains the protocol buffer source and generated files)
 					│   └── main.proto // Protocol buffer file
 					│
+					├── Dockerfile
 					├── go.mod
 					└── go.sum
 		`)
